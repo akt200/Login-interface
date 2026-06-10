@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AHMED - IMAX SPACE</title>
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: Inter, Segoe UI, Arial;
+}
+
+/* 🌌 IMAX SPACE BACKGROUND */
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:
+radial-gradient(circle at 20% 20%, #2a1b4a 0%, transparent 45%),
+radial-gradient(circle at 80% 70%, #0f2a3a 0%, transparent 50%),
+radial-gradient(circle at top, #060913, #05060a);
+}
+
+/* SPACE */
+.space{
+position:fixed;
+inset:0;
+overflow:hidden;
+z-index:0;
+}
+
+/* ⭐ STAR */
+.star{
+position:absolute;
+border-radius:50%;
+background:rgba(255,255,255,0.9);
+box-shadow:0 0 6px rgba(255,255,255,0.25);
+will-change: transform, opacity;
+}
+
+/* 💎 CARD */
+.card{
+position:relative;
+z-index:10;
+width:540px;
+padding:60px;
+border-radius:28px;
+
+background:rgba(255,255,255,0.07);
+backdrop-filter: blur(60px) saturate(220%);
+-webkit-backdrop-filter: blur(60px) saturate(220%);
+
+border:1px solid rgba(255,255,255,0.18);
+
+box-shadow:
+0 40px 120px rgba(0,0,0,0.55),
+inset 0 1px 0 rgba(255,255,255,0.1);
+
+transform: translateZ(0);
+}
+
+/* AVATAR */
+.avatar{
+width:140px;
+height:140px;
+margin:auto;
+margin-bottom:20px;
+border-radius:50%;
+overflow:hidden;
+border:2px solid rgba(255,255,255,0.25);
+box-shadow:0 10px 40px rgba(0,0,0,0.5);
+}
+
+.avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* NAME */
+.name{
+margin-top:10px;
+text-align:center;
+color:white;
+font-size:56px;
+font-weight:300;
+letter-spacing:12px;
+}
+
+/* LINKS */
+.link{
+height:68px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:16px;
+text-decoration:none;
+color:white;
+
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.10);
+
+transition:0.3s;
+}
+
+.link:hover{
+transform:translateY(-5px);
+background:rgba(255,255,255,0.10);
+}
+
+/* FOOTER */
+.footer{
+margin-top:30px;
+text-align:center;
+color:rgba(255,255,255,0.75);
+line-height:1.8;
+font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="space"></div>
+
+<div class="card">
+
+  <!-- IMAGE -->
+  <div class="avatar">
+    <img src="profile.jpg" alt="profile">
+  </div>
+
+  <!-- NAME -->
+  <div class="name">AHMED</div>
+
+  <!-- LINKS -->
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:25px">
+
+    <a class="link" href="https://snapchat.com/t/QuoABu38">Snapchat</a>
+    <a class="link" href="https://www.facebook.com/share/1G2mWjuDPx/?mibextid=wwXIfr">Facebook</a>
+    <a class="link" href="https://tiktok.com/@akt_z">TikTok</a>
+    <a class="link" href="https://t.me/akt_z">Telegram</a>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <br>
+    Design by 
+المهندس أحمد الطائي 
+  </div>
+
+</div>
+
+<script>
+
+const space=document.querySelector(".space");
+const stars=[];
+
+/* ⭐ STARFIELD */
+for(let i=0;i<550;i++){
+
+const s=document.createElement("div");
+s.className="star";
+
+const depth=Math.random();
+const size=(1-depth)*2;
+
+s.style.width=size+"px";
+s.style.height=size+"px";
+
+s.dataset.x=Math.random()*window.innerWidth;
+s.dataset.y=Math.random()*window.innerHeight;
+s.dataset.z=depth;
+
+space.appendChild(s);
+stars.push(s);
+}
+
+/* 🌌 IMAX STAR MOTION */
+function animateStars(){
+
+for(const s of stars){
+
+let x=parseFloat(s.dataset.x);
+let y=parseFloat(s.dataset.y);
+let z=parseFloat(s.dataset.z);
+
+x += (0.25 + (1-z)*1.3);
+y += (0.08 + (1-z)*0.5);
+
+if(x>window.innerWidth) x=0;
+if(y>window.innerHeight) y=0;
+
+s.dataset.x=x;
+s.dataset.y=y;
+
+s.style.transform=`translate(${x}px,${y}px)`;
+s.style.opacity=0.25 + (1-z)*0.75;
+}
+
+requestAnimationFrame(animateStars);
+}
+
+animateStars();
+
+</script>
+
+</body>
+</html>
